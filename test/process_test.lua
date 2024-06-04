@@ -25,8 +25,6 @@ end
 
 
 describe("greetings", function()
-  -- local originalGetPair
-
   setup(function()
     -- to execute before this describe
   end)
