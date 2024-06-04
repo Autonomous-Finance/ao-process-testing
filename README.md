@@ -2,7 +2,17 @@
 
 This is a boilerplate project to allow for a flexible and powerful testing setup while developing applications on AO.
 
-Both unit and integration tests can be created from here.
+Suitable for
+- unit tests (including fuzzing) 
+- integration tests
+
+## Unit Tests
+
+If a unit (module) internally uses functions or variables which are also exposed, this setup allows for configuring these functions and values as needed for different tests. See `rewards_test.lua`.
+
+Additional unit test files can be added. They should be named similarly, as specified in `test/setup.lua`.
+
+## Integration Tests
 
 The approach is to test one *app process* (`process.lua`) with its actual Handlers and imported modules, without modifying its code in any way as to accomodate testing.
 
@@ -14,11 +24,11 @@ However, `ao` is mocked such that
 - messages targeting our *app process* are handled according to its actual handlers (to be tested)
 - messages targeting mock processes are handled via their `handle(msg)` function which they expose for the purpose of being used in integration tests.
 
-## Flexibility 
+### Flexibility 
 
 The developer is free to implement the internal state of mocked processess as they see fit, such that subsequent calls to `handle(msg)` yield realistic results.
 
-## Global values & Mock Processes
+### Global values & Mock Processes
 
 `_G.MainProcessId` - an arbitrary ID assigned to the *app process* such that `ao` and the mocked processes can reference it.
 
@@ -32,7 +42,7 @@ _G.Processes = {
 }
 ```
 
-## Borrowed Code - Mocking ao with code from `aos`
+### Borrowed Code - Mocking `ao`
 
 `handlers.lua` and `handlers-utils.lua` are used for matching the actual handlers of *app process*
 
@@ -41,7 +51,7 @@ _G.Processes = {
 In order to keep things simple, the default handlers associated with each process (`_default` and `_eval`) are not added to *app process* and so they never kick in as they would in production.
 For the purpose of testing, we find them not essential.
 
-## Why not ao loader & aos-test-kit
+### Why not ao loader & aos-test-kit
 
 Testing can also be performed with the ao loader from https://github.com/permaweb/ao, see https://www.npmjs.com/package/@permaweb/ao-loader?activeTab=readme and how it is used in the [**aos-test-kit**](https://github.com/permaweb/aos-test-kit).
 
