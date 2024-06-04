@@ -1,0 +1,15 @@
+{
+  "name": "ao-test-mocks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "bash ./scripts/test.sh"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
