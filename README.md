@@ -21,6 +21,7 @@ The approach is to test one main *app process* (`process.lua`) with its actual H
 **Other processes** that our *app process* interacts with **are mocked** in `test/mocked-env/processes`.
 
 Inter-process communication occurs via the familiar `ao.send({...})` call.
+In addition to the familiar key-value pairs of its argument, `ao.send` also supports a `From = "xyz...321"` which allows you to impersonate accounts when sending messages. This enables for instance the testing of access control.
 
 `ao` **is mocked** such that
 - messages targeting our *app process* are handled according to its actual handlers (to be tested)
