@@ -12,13 +12,19 @@ Handlers.add(
 )
 
 Handlers.add(
+  "requestBalance",
+  Handlers.utils.hasMatchingTag("Action", "RequestBalance"),
+  function(msg)
+    ao.send({ Target = _G.AoCredProcessId, Action = "Balance" })
+  end
+)
+
+Handlers.add(
   "receiveBalance",
   function(msg)
-    return msg.Tags.Balance ~= nil and msg.From == "AoCred"
+    return msg.Tags.Balance ~= nil and msg.From == _G.AoCredProcessId
   end,
   function(msg)
-    if msg.Tags.Action == "Balance" then
-      LastBalance = msg.Data
-    end
+    LastBalance = msg.Tags.Balance
   end
 )

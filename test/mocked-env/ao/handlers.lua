@@ -124,7 +124,10 @@ end
 
 --- return 0 to not call handler, -1 to break after handler is called, 1 to continue
 function handlers.evaluate(msg, env)
-  print('> LOG: ' .. 'Evaluating')
+  print('> LOG: ' ..
+    'Evaluating msg --- From ' ..
+    msg.From ..
+    ' To ' .. msg.Target .. tostring(msg.Tags.Action and ' - (Action = ' .. msg.Tags.Action .. ')' or ' - ()'))
   local handled = false
   assert(type(msg) == 'table', 'msg is not valid')
   assert(type(env) == 'table', 'env is not valid')

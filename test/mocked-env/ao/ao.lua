@@ -11,12 +11,11 @@ local function newmodule(selfId)
     otherwise, use simplified mock handling with dedicated module representing the target process
   ]]
   function ao.send(rawMsg)
-    local msg = _my.applyTags(rawMsg)
+    local msg = _my.formatMsg(rawMsg)
     if msg.Target == _G.MainProcessId then
       _G.Handlers.evaluate(msg, _my.env)
     else
       local targetProcess = _G.Processes[msg.Target]
-      print(targetProcess)
       if targetProcess then
         targetProcess.handle(msg)
       else
@@ -78,8 +77,9 @@ local function newmodule(selfId)
     }
   end
 
-  _my.applyTags = function(msg)
+  _my.formatMsg = function(msg)
     local formattedMsg = _my.createMsg()
+    formattedMsg.From = ao.id
 
     for k, v in pairs(msg) do
       if formattedMsg[k] then

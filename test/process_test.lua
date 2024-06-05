@@ -10,7 +10,9 @@ _G.Processes = {
 
 _G.Handlers = require "handlers"
 
-local ao = require "ao" (_G.MainProcessId)
+_G.ao = require "ao" (_G.MainProcessId) -- make global so that the main process and its non-mocked modules can use it
+-- => every ao.send({}) in this test file effectively appears as if the message comes the main process
+
 local process = require "process" -- require so that process handlers are loaded
 -- local utils = require "utils"
 -- local bint = require ".bint" (512)
@@ -43,20 +45,22 @@ describe("greetings", function()
 
   it("should increment Greetings count on a Greet message", function()
     ao.send({ Target = ao.id, Action = "Greet", Data = "Hello" })
-    assert.are.equals(_G.Greetings, 1)
+    assert.are.equal(_G.Greetings, 1)
   end)
 
   it("should update LastGreeting on a Greet message", function()
     local testGreeting = "HelloThere"
     ao.send({ Target = ao.id, Action = "Greet", Data = testGreeting })
-    assert.are.equals(_G.LastGreeting, testGreeting)
+    assert.are.equal(_G.LastGreeting, testGreeting)
   end)
 
   it("should have no last balance at first", function()
     assert.is_nil(_G.LastBalance)
   end)
 
-  it("should obtain last balance from aocred", function()
-    ao.send({ Target = _G.AoCredProcessId, Action = "Balance" })
+  it("should request and obtain last balance from aocred", function()
+    ao.send({ Target = _G.MainProcessId, Action = "RequestBalance" })
+    local mockBalance = _G.Processes[_G.AoCredProcessId].mockBalance
+    assert.are.equal(_G.LastBalance, mockBalance)
   end)
 end)
