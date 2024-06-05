@@ -46,9 +46,9 @@ _G.Processes = {
 
 ### Replicated Code - Mocking `ao` & `aos`
 
-`ao.lua` contains minimum functionality such as to facilitate the simulation of message communication. It borrows a lot from the setup of the [aos-test-kit](https://github.com/permaweb/aos-test-kit).
+`test/mocked-env/ao/ao.lua` contains minimum functionality such as to facilitate the simulation of message communication. It borrows a lot from the setup of the [aos-test-kit](https://github.com/permaweb/aos-test-kit).
 
-We replicate some code from [aos](https://github.com/permaweb/aos.git) - `handlers.lua` and `handlers-utils.lua` are used for matching the actual handlers of *app process*
+We replicate some code from [aos](https://github.com/permaweb/aos.git) - `test/mocked-env/ao/handlers.lua` and `test/mocked-env/ao/handlers-utils.lua` are used for matching the actual handlers of *app process*
 
 In order to keep things simple, the default handlers associated with each process (`_default` and `_eval`) are not added to *app process* and so they never kick in as they would in production.
 For the purpose of testing, we find them not essential.
