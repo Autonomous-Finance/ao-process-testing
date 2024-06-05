@@ -63,3 +63,8 @@ While the aos-test-kit does facilitate TDD while developing an AO process, it of
 - allowing inter-process interaction with mocked processes
 
 Additionally, the present setup makes it possible to write the tests entirely in Lua, which may be preferrable in some cases.
+
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
