@@ -1,6 +1,7 @@
 ---@diagnostic disable: duplicate-set-field
 require("test.setup")()
 
+_G.Owner = '123MyOwner321'
 _G.MainProcessId = '123xyzMySelfabc321'
 _G.AoCredProcessId = 'AoCred-123xyz'
 
@@ -62,5 +63,17 @@ describe("greetings", function()
     ao.send({ Target = _G.MainProcessId, Action = "RequestBalance" })
     local mockBalance = _G.Processes[_G.AoCredProcessId].mockBalance
     assert.are.equal(_G.LastBalance, mockBalance)
+  end)
+
+  it("should allow the owner to change the process name", function()
+    local newName = "NewName1"
+    ao.send({ Target = _G.MainProcessId, Action = "SetPublicName", Name = newName, From = _G.Owner })
+    assert.are.equal(_G.PublicName, newName)
+  end)
+
+  it("should prevent non-owners from changing the process name", function()
+    local newName = "NewName2"
+    ao.send({ Target = _G.MainProcessId, Action = "SetPublicName", Name = newName, From = 'ANON' })
+    assert.are_not.equal(_G.PublicName, newName)
   end)
 end)

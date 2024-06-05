@@ -7,8 +7,18 @@ local function newmodule(selfId)
   local _my = {}
 
   --[[
-    if message is for the process we're testing, handle accoring to globally defined handlers
+    if message is for the process we're testing, handle according to globally defined handlers
     otherwise, use simplified mock handling with dedicated module representing the target process
+
+    @param rawMsg table with key-value pairs representing
+    {
+      Target = string, -- process id
+      From = string, -- process id or wallet id; if not provided, defaults to self
+      Data = string, -- message data
+      Tags = table, -- key-value pairs representing message tags
+      TagName1 = TagValue1, -- tag key-value pair of strings
+      TagName2 = TagValue2, -- tag key-value pair of strings
+    }
   ]]
   function ao.send(rawMsg)
     local msg = _my.formatMsg(rawMsg)
@@ -79,7 +89,9 @@ local function newmodule(selfId)
 
   _my.formatMsg = function(msg)
     local formattedMsg = _my.createMsg()
-    formattedMsg.From = ao.id
+    formattedMsg.From = msg.From or ao.id
+    formattedMsg.Data = msg.Data or nil
+    formattedMsg.Tags = msg.Tags or formattedMsg.Tags
 
     for k, v in pairs(msg) do
       if formattedMsg[k] then
