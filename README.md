@@ -8,6 +8,8 @@ This boilerplate is suitable for
 - unit tests (including fuzzing) 
 - integration tests
 
+> ⚠️ The project is under development and may have bugs or design shortcomings. Feel free to contribute by opening issues or PR-ing. We welcome any effort aimed at making this a better tool for the community.
+
 ## Unit Tests
 
 If a unit (module) internally uses functions or variables which are also exposed, this setup allows for ad-hoc changes to these functions and values as needed for different tests. See `rewards_test.lua` for an example on how to leverage this in order to perform **fuzzing**.
@@ -47,7 +49,7 @@ _G.Processes = {
 
 ### Replicated Code - Mocking `ao` & `aos`
 
-`test/mocked-env/ao/ao.lua` contains minimum functionality such as to facilitate the simulation of message communication. It borrows a lot from the setup of the [aos-test-kit](https://github.com/permaweb/aos-test-kit).
+`test/mocked-env/ao/ao.lua` contains minimum functionality such as to facilitate the simulation of message communication. It borrows from the setup of the [aos-test-kit](https://github.com/permaweb/aos-test-kit).
 
 We replicate some code from [aos](https://github.com/permaweb/aos.git) - `test/mocked-env/ao/handlers.lua` and `test/mocked-env/ao/handlers-utils.lua` are used for matching the actual handlers of *app process*
 
