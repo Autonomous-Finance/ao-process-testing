@@ -77,7 +77,7 @@ local function newmodule(selfId)
     return {
       Id = '1234',
       Target = 'AOS',
-      Owner = _G.Owner,
+      Owner = "fcoN_xJeisVsPXA-trzVAuIiqO3ydLQxM-L4XbrQKzY",
       From = 'OWNER',
       Data = '1984',
       Tags = {},
