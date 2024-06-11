@@ -92,6 +92,7 @@ local function newmodule(selfId)
     formattedMsg.From = msg.From or ao.id
     formattedMsg.Data = msg.Data or nil
     formattedMsg.Tags = msg.Tags or formattedMsg.Tags
+    formattedMsg.Timestamp = msg.Tags or formattedMsg.Timestamp
 
     for k, v in pairs(msg) do
       if formattedMsg[k] then
