@@ -97,17 +97,20 @@ local function newmodule(selfId)
 
   _my.formatMsg = function(msg)
     local formattedMsg = _my.createMsg()
+    -- allow these top-level keys to be overwritten
     formattedMsg.From = msg.From or ao.id
     formattedMsg.Data = msg.Data or nil
-    formattedMsg.Tags = msg.Tags or formattedMsg.Tags
     formattedMsg.Timestamp = msg.Tags or formattedMsg.Timestamp
 
+    -- handle tags
+    formattedMsg.Tags = msg.Tags or formattedMsg.Tags
     for k, v in pairs(msg) do
-      if formattedMsg[k] then
-        formattedMsg[k] = v
-      else
+      if not formattedMsg[k] then
         formattedMsg.Tags[k] = v
       end
+
+      formattedMsg[k] =
+      v                   -- TODO check for safety here in order to be complete (no top level keys like Module, Owner, From-Process, etc. should be overwritten)
     end
 
     return formattedMsg
