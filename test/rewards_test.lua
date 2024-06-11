@@ -1,6 +1,8 @@
 ---@diagnostic disable: duplicate-set-field
 require("test.setup")()
 
+_G.VerboseTests = true
+
 local rewards = require "rewards"
 
 describe("rewards", function()

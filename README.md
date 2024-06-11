@@ -49,6 +49,10 @@ _G.Processes = {
 }
 ```
 
+### Controlled Logging
+
+With all testing logic being in lua, it's possible to leverage the native `print` function. All logging related to the mock message passing and handling can be toggled by changing the `_G.VerboseTests`, which is set specifically for every `_test.lua` file.
+
 ### Replicated Code - Mocking `ao` & `aos`
 
 `test/mocked-env/ao/ao.lua` contains minimum functionality such as to facilitate the simulation of message communication. It borrows from the setup of the [aos-test-kit](https://github.com/permaweb/aos-test-kit).

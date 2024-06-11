@@ -1,6 +1,8 @@
 ---@diagnostic disable: duplicate-set-field
 require("test.setup")()
 
+_G.VerboseTests = true
+
 _G.Owner = '123MyOwner321'
 _G.MainProcessId = '123xyzMySelfabc321'
 _G.AoCredProcessId = 'AoCred-123xyz'

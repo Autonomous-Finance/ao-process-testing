@@ -124,10 +124,12 @@ end
 
 --- return 0 to not call handler, -1 to break after handler is called, 1 to continue
 function handlers.evaluate(msg, env)
-  print('> LOG: ' ..
-    'Evaluating msg --- From ' ..
-    msg.From ..
-    ' To ' .. msg.Target .. tostring(msg.Tags.Action and ' - (Action = ' .. msg.Tags.Action .. ')' or ' - ()'))
+  if _G.VerboseTests then
+    print('> LOG: ' ..
+      'Evaluating msg --- From ' ..
+      msg.From ..
+      ' To ' .. msg.Target .. tostring(msg.Tags.Action and ' - (Action = ' .. msg.Tags.Action .. ')' or ' - ()'))
+  end
   local handled = false
   assert(type(msg) == 'table', 'msg is not valid')
   assert(type(env) == 'table', 'env is not valid')
@@ -174,7 +176,9 @@ function handlers.evaluate(msg, env)
     end
   end
   -- do default
-  print('> LOG: ' .. 'SKIPPING DEFAULT HANDLER')
+  if _G.VerboseTests then
+    print('> LOG: ' .. 'SKIPPING DEFAULT HANDLER')
+  end
   -- if not handled then
   --   local idx = findIndexByProp(handlers.list, "name", "_default")
   --   handlers.list[idx].handle(msg, env)
