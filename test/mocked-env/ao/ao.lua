@@ -22,6 +22,14 @@ local function newmodule(selfId)
   ]]
   function ao.send(rawMsg)
     local msg = _my.formatMsg(rawMsg)
+
+    if msg.Target == _G.Owner then
+      if _G.VerboseTests then
+        print('⚠️ Skip handle: Message from ' .. msg.From .. ' to agent owner: ' .. tostring(msg.Action))
+      end
+      return
+    end
+
     if msg.Target == _G.MainProcessId then
       _G.Handlers.evaluate(msg, _my.env)
     else
