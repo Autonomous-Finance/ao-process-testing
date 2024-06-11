@@ -35,6 +35,11 @@ In addition to the familiar key-value pairs of its argument, `ao.send` also supp
 
 You are free to implement the internal state of mocked processess as you see fit, such that subsequent calls to `handle(msg)` yield realistic results.
 
+#### Virtual Time
+
+You can use `_G.VirtualTime` in order to test logic related to time (time locks, cooldown periods, etc.). The messages sent via `ao.send()` will use the `_G.VirtualTime` value if it is not `nil`. However, using an explicit `Timestamp = 1234` in the message payload overrides any virtual time value:
+
+
 ### Global values & Mock Processes
 
 `_G.MainProcessId` - an arbitrary ID assigned to the *app process* such that `ao` and the mocked processes can reference it.

@@ -90,7 +90,7 @@ local function newmodule(selfId)
       Data = '1984',
       Tags = {},
       ['Block-Height'] = '1',
-      Timestamp = os.time(),
+      Timestamp = _G.VirtualTime or os.time(),
       Module = '4567'
     }
   end
@@ -100,7 +100,7 @@ local function newmodule(selfId)
     -- allow these top-level keys to be overwritten
     formattedMsg.From = msg.From or ao.id
     formattedMsg.Data = msg.Data or nil
-    formattedMsg.Timestamp = msg.Tags or formattedMsg.Timestamp
+    formattedMsg.Timestamp = msg.Timestamp or formattedMsg.Timestamp
 
     -- handle tags
     formattedMsg.Tags = msg.Tags or formattedMsg.Tags
@@ -110,7 +110,7 @@ local function newmodule(selfId)
       end
 
       formattedMsg[k] =
-      v                   -- TODO check for safety here in order to be complete (no top level keys like Module, Owner, From-Process, etc. should be overwritten)
+          v -- TODO check for safety here in order to be complete (no top level keys like Module, Owner, From-Process, etc. should be overwritten)
     end
 
     return formattedMsg

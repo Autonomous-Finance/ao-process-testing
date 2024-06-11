@@ -2,6 +2,7 @@
 require("test.setup")()
 
 _G.VerboseTests = true
+-- _G.VirtualTime = os.time() -- optional, uncomment if you need time travel in tests
 
 _G.Owner = '123MyOwner321'
 _G.MainProcessId = '123xyzMySelfabc321'
