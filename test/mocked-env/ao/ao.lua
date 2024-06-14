@@ -24,9 +24,7 @@ local function newmodule(selfId)
     local msg = _my.formatMsg(rawMsg)
 
     if msg.Target == _G.Owner then
-      if _G.VerboseTests then
-        print('⚠️ Skip handle: Message from ' .. msg.From .. ' to agent owner: ' .. tostring(msg.Action))
-      end
+      printVerb(2)('⚠️ Skip handle: Message from ' .. msg.From .. ' to agent owner: ' .. tostring(msg.Action))
       return
     end
 

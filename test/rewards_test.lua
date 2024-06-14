@@ -1,7 +1,14 @@
 ---@diagnostic disable: duplicate-set-field
 require("test.setup")()
 
-_G.VerboseTests = true
+_G.VerboseTests = 0 -- how much logging to see (0 - none at all, 1 - important ones, 2 - everything)
+-- optional logging function that allows for different verbosity levels
+_G.printVerb = function(level)
+  level = level or 2
+  return function(...) -- define here as global so we can use it in application code too
+    if _G.VerboseTests >= level then print(table.unpack({ ... })) end
+  end
+end
 
 local rewards = require "rewards"
 

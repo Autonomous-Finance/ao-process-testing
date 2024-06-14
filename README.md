@@ -56,7 +56,13 @@ _G.Processes = {
 
 ### Controlled Logging
 
-With all testing logic being in lua, it's possible to leverage the native `print` function. All logging related to the mock message passing and handling can be toggled by changing the `_G.VerboseTests`, which is set specifically for every `_test.lua` file.
+With all testing logic being in lua, it's possible to leverage the native `print` function. 
+We wrap it in a higher order function such as to allow for specifying a verbosity level for each logging. See the function `_G.printVerb` at the top of the example `test/*_test.lua` files.
+For example, any logging related to message passing and handling is done with level 2 verbosity, see `printVerb(2)('> LOG: ' .. 'SKIPPING DEFAULT HANDLER')` in `test/mocked-env/ao/handlers.lua`
+
+By using this approach you can also change the verbosity of your test suite while it is executing, such as to have **only specific tests or parts of one test** run with high verbosity, while others keep a low or 0 verbosity. That way you can more effectively focus on failing tests or parts of tests when debugging.
+
+Also, by making `_G.printVerb` a global function you can for a brief time include this logging in your application code, just for the time of debugging while some of your tests are failing.
 
 ### Replicated Code - Mocking `ao` & `aos`
 
