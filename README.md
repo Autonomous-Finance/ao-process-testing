@@ -10,13 +10,31 @@ This boilerplate is suitable for
 
 > ⚠️ The project is under development and may have bugs or design shortcomings. Feel free to contribute by opening issues or PR-ing. We welcome any effort aimed at making this a better tool for the community.
 
-## Unit Tests
+## Problem Framing
+
+The main goal is to test as thoroughly as needed without compromising good design patterns in the actual application code.
+
+As in other types of programming, we do find a need to make design choices partially based on testability. Without any proper "units" there can be no unit testing at all.
+
+Along these lines is one main suggestion we are making upfront:
+> In order to easily create unit tests it's better to have the top level lua file only define handlers, while execution functions are in one or multiple dedicated modules
+
+This principle makes it possible to "unit-test" the execution of specific handlers without the need for mocking the message that triggers that specific handler.
+
+By building in the AO paradigm we've come to the following conceptual differentiation between **types of testing**:
+
+1. Integration tests btw. processes (requires mocking other processes and part of ao itself)
+2. Integration btw. modules (libs) that serve a single process - these can also be viewed as unit tests on the single process itself
+3. Unit tests for modules (libs) that serve a single process
+
+
+## Unit Tests (Type 2 and 3)
 
 If a unit (module) internally uses functions or variables which are also exposed, this setup allows for ad-hoc changes to these functions and values as needed for different tests. See `rewards_test.lua` for an example on how to leverage this in order to perform **fuzzing**.
 
 Additional unit test files can be added. They should be named similarly, as specified in `test/setup.lua`.
 
-## Integration Tests
+## Integration Tests (Type 1)
 
 The approach is to test one main *app process* (`process.lua`) with its actual Handlers and imported modules, without modifying its original code in any way.
 
@@ -34,6 +52,10 @@ In addition to the familiar key-value pairs of its argument, `ao.send` also supp
 ### Flexibility 
 
 You are free to implement the internal state of mocked processess as you see fit, such that subsequent calls to `handle(msg)` yield realistic results.
+
+You can skip execution of `ao.send()` entirely for any particular test file by using `_G.IsInUnitTest = true`. This is useful if you want to perform a unit test of **Type 2**:
+A specific handler is implemented as a separate function as described [above](#problem-framing). It performs internal state updates of many kinds, involving multiple modules. During execution it sends out messages that are not essential to the correct execution flow. (logging, syncing, success confirmations etc.). 
+By using the unit test flag, it's possible to test these handler execution functions without
 
 #### Virtual Time
 

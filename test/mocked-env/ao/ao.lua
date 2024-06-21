@@ -21,6 +21,8 @@ local function newmodule(selfId)
     }
   ]]
   function ao.send(rawMsg)
+    if _G.IsInUnitTest then return end
+
     local msg = _my.formatMsg(rawMsg)
 
     if msg.Target == _G.Owner then

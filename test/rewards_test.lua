@@ -1,7 +1,8 @@
 ---@diagnostic disable: duplicate-set-field
 require("test.setup")()
 
-_G.VerboseTests = 0 -- how much logging to see (0 - none at all, 1 - important ones, 2 - everything)
+_G.IsInUnitTest = true -- set this per test file to keep ao.send() from doing anything
+_G.VerboseTests = 0    -- how much logging to see (0 - none at all, 1 - important ones, 2 - everything)
 -- optional logging function that allows for different verbosity levels
 _G.printVerb = function(level)
   level = level or 2
