@@ -24,6 +24,15 @@ _G.Handlers = require "handlers"
 _G.ao = require "ao" (_G.MainProcessId) -- make global so that the main process and its non-mocked modules can use it
 -- => every ao.send({}) in this test file effectively appears as if the message comes the main process
 
+_G.ao.env = {
+  Process = {
+    Tags = {
+      ["Name"] = "GreeterProcess",
+      -- ... add other tags that would be passed in when the process is spawned
+    }
+  }
+}
+
 local process = require "process" -- require so that process handlers are loaded
 -- local utils = require "utils"
 -- local bint = require ".bint" (512)

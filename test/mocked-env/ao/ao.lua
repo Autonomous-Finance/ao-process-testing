@@ -27,6 +27,7 @@ local function newmodule(selfId)
 
     if msg.Target == _G.Owner then
       printVerb(2)('⚠️ Skip handle: Message from ' .. msg.From .. ' to agent owner: ' .. tostring(msg.Action))
+      -- ALTERNATIVELY: _G.LastMessageToOwner = msg
       return
     end
 

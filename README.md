@@ -48,6 +48,8 @@ In addition to the familiar key-value pairs of its argument, `ao.send` also supp
 `ao` **is mocked** such that
 - messages targeting our *app process* are handled according to its actual handlers (to be tested)
 - messages targeting mock processes are handled via their `handle(msg)` function which they expose for the purpose of being used in integration tests.
+- messages targeting users can be handled by storing them in a global value `_G.LastMessageToOwner`, or something more sophisticated like `_G.MessagesToWallets` if more the test assertions require more info than just the last received message
+- the process environment `ao.env.Process` can be set as needed in the main test file. This is especially useful if custom tags are passed into the tested process when it is spawned.
 
 ### Flexibility 
 
