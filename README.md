@@ -38,7 +38,7 @@ As in other types of programming, we do find a need to make design choices parti
 Along these lines is one main suggestion we are making upfront:
 > In order to easily create unit tests it's better to have the top level lua file only define handlers, while execution functions are in one or multiple dedicated modules
 
-This principle makes it possible to "unit-test" the execution of specific handlers without the need for mocking the message that triggers that specific handler.
+This principle makes it possible to **"unit-test"** the execution of specific handlers **without the need for mocking the message** that triggers that specific handler.
 
 By building in the AO paradigm we've come to the following conceptual differentiation between **types of testing**:
 
@@ -68,7 +68,7 @@ In addition to the familiar key-value pairs of its argument, `ao.send` also supp
 - messages targeting our *app process* are handled according to its actual handlers (to be tested)
 - messages targeting mock processes are handled via their `handle(msg)` function which they expose for the purpose of being used in integration tests.
 - messages targeting users can be handled by storing them in a global value `_G.LastMessageToOwner`, or something more sophisticated like `_G.MessagesToWallets` if more the test assertions require more info than just the last received message
-- the process environment `ao.env.Process` can be set as needed in the main test file. This is especially useful if custom tags are passed into the tested process when it is spawned.
+- the process environment `ao.env.Process` can be set as needed in the test file (see `process_test.lua`). This is especially useful if custom tags are passed into the tested process when it is spawned.
 
 ### Flexibility 
 
@@ -116,7 +116,7 @@ We replicate some code from [aos](https://github.com/permaweb/aos.git) - `test/m
 In order to keep things simple, the default handlers associated with each process (`_default` and `_eval`) are not added to *app process* and so they never kick in as they would in production.
 For the purpose of testing, we find them not essential.
 
-### An alternative to `@permaweb/ao-loader` & aos-test-kit
+### An alternative to `@permaweb/ao-loader` & `aos-test-kit`
 
 Testing can also be performed with the ao-loader from https://github.com/permaweb/ao, see the [npm package](https://www.npmjs.com/package/@permaweb/ao-loader?activeTab=readme) and how it is used in the [**aos-test-kit**](https://github.com/permaweb/aos-test-kit).
 
