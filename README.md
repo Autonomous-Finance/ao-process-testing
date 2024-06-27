@@ -36,7 +36,8 @@ The main goal is to test as thoroughly as needed without compromising good desig
 As in other types of programming, we do find a need to make design choices partially based on testability. Without any proper "units" there can be no unit testing at all.
 
 Along these lines is one main suggestion we are making upfront:
-> In order to easily create unit tests it's better to have the top level lua file only define handlers, while execution functions are in one or multiple dedicated modules
+> In order to **easily create unit tests** it's better to have the top level lua file only define handlers, while execution functions are in one or multiple dedicated modules.
+> Additionally we suggest splitting out any `ao.send({})` that occurs as part of the handler execution, into its own function within the dedicated module that is to be unit tested. That function can be mocked when doing unit tests, so that they do something other than `ao.send({})` (ideally, something verifiable with assertions)
 
 This principle makes it possible to **"unit-test"** the execution of specific handlers **without the need for mocking the message** that triggers that specific handler.
 
