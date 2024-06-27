@@ -14,6 +14,11 @@ In the sections below we describe some key concepts and explain design decisions
 
 ## How To Use
 
+The files `process.lua` and `rewards.lua` contain some code you would typically have in your AO process (handlers and global state you are adding to the process).
+
+The file `process_test.lua` is an example for integration tests.
+The file `rewards_test.lua` is an example for unit tests.
+
 ### Start From Scratch
 If you start from scratch with a new project, use `process.lua` as the place to define and add your Handlers in.
 Use files like `rewards.lua` for creating lib-like modules that implement helpers, handler execution or handler matching logic.
