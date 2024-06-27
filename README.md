@@ -16,8 +16,61 @@ In the sections below we describe some key concepts and explain design decisions
 
 The files `process.lua` and `rewards.lua` contain some code you would typically have in your AO process (handlers and global state you are adding to the process).
 
-The file `process_test.lua` is an example for integration tests.
-The file `rewards_test.lua` is an example for unit tests.
+The files `process_test.lua` and `rewards_test.lua` contain examples of integration tests and unit tests, respectively.
+
+An **integration test** example
+
+```lua
+-- application code (process.lua)
+
+Handlers.add(
+  "greet",
+  Handlers.utils.hasMatchingTag("Action", "Greet"),
+  function(msg)
+    Greetings = Greetings + 1
+    LastGreeting = msg.Data
+  end
+)
+
+-- integration test code (process_test.lua)
+
+it("should increment Greetings count on a Greet message", function()
+  ao.send({ Target = ao.id, Action = "Greet", Data = "Hello" })
+  assert.are.equal(_G.Greetings, 1)
+end)
+```
+
+A **unit test** example
+
+```lua
+-- application code (rewards.lua)
+
+mod.nextReward = function(msg)
+  local maximumEntry = mod.getMaximumEntry()
+  if maximumEntry and maximumEntry.value >= mod.Threshold then
+    return maximumEntry.value * mod.RewardFactor
+  else
+    return 0
+  end
+end
+
+-- unit test code (rewards_test.lua)
+
+it("it should return 0 reward if we are below threshold", function()
+    rewards.Threshold = 42
+    rewards.RewardFactor = 10
+    -- mock this for the purpose of the test
+    local originalGetMaximum = rewards.getMaximumEntry
+
+    rewards.getMaximumEntry = function()
+      return { value = 41 }
+    end
+
+    assert.are.equal(rewards.nextReward(), 0)
+    rewards.getMaximumEntry = originalGetMaximum
+  end)
+```
+
 
 ### Start From Scratch
 If you start from scratch with a new project, use `process.lua` as the place to define and add your Handlers in.
