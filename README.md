@@ -8,9 +8,28 @@ This boilerplate is suitable for
 - unit tests (including fuzzing) 
 - integration tests
 
+In the sections below we describe some key concepts and explain design decisions around this test setup. With AO being a relatively new technology, there are only a few established best-practice patterns that can be applied directly to AO process development. In many cases, the "way to go" about solving some problems is yet to be established within the builder community.
+
 > ⚠️ The project is under development and may have bugs or design shortcomings. Feel free to contribute by opening issues or PR-ing. We welcome any effort aimed at making this a better tool for the community.
 
-## Problem Framing
+## How To Use
+
+### Start From Scratch
+If you start from scratch with a new project, use `process.lua` as the place to define and add your Handlers in.
+Use files like `rewards.lua` for creating lib-like modules that implement helpers, handler execution or handler matching logic.
+
+### Add This To Your Project
+1. Add the `scripts/` and `test/` directories from this repository to your project.
+2. Replace `process.lua` with your main process file. If you prefer another name, feel free to sync the name of `test/process_test.lua`
+3. Include your lib-like modules. They can be simply required into the `_test.lua` files: `local rewards = require "rewards"`
+
+### Assumptions
+This testing setup assumes that
+- your repo has a single "main" process
+- the main process handlers are added in the file `process.lua`
+- `process.lua` potentially requires lua modules (lib-like) in order to define the handlers
+
+## Framing The Problem
 
 The main goal is to test as thoroughly as needed without compromising good design patterns in the actual application code.
 
