@@ -29,6 +29,10 @@ local function mockedRequire(moduleName)
     return originalRequire("test.mocked-env.lib.json")
   end
 
+  if moduleName == "lsqlite3" then
+    return originalRequire("lsqlite3complete")
+  end
+
   return originalRequire(moduleName)
 end
 

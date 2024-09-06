@@ -12,6 +12,18 @@ In the sections below we describe some key concepts and explain design decisions
 
 > ⚠️ The project is under development and may have bugs or design shortcomings. Feel free to contribute by opening issues or PR-ing. We welcome any effort aimed at making this a better tool for the community.
 
+## Installation (macOS)
+
+```
+brew install luarocks
+luarocks install busted
+```
+
+for SQLite3 support:
+```
+luarocks install lsqlite3complete
+```
+
 ## How To Use
 
 The files `process.lua` and `rewards.lua` contain some code you would typically have in your AO process (handlers and global state you are adding to the process).
