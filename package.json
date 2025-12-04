@@ -1,15 +1,27 @@
 {
-  "name": "ao-test-mocks",
+  "name": "ao-process-testing",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A flexible testing framework for AO process development, supporting unit and integration tests written entirely in Lua",
+  "main": "process.lua",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "test": "bash ./scripts/test.sh"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "keywords": [
+    "ao",
+    "arweave",
+    "testing",
+    "lua",
+    "busted",
+    "unit-testing",
+    "integration-testing"
+  ],
+  "author": "Autonomous Finance (AF)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/autonomousfinance/ao-process-testing.git"
+  }
 }
