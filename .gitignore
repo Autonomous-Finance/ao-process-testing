@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Lua
+*.luac
+*.o
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Test artifacts
+test-results/
+coverage/
+

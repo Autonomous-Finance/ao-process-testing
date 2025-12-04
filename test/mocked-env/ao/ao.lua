@@ -98,20 +98,34 @@ local function newmodule(selfId)
 
   _my.formatMsg = function(msg)
     local formattedMsg = _my.createMsg()
-    -- allow these top-level keys to be overwritten
+    
+    -- Protected keys that should not be overwritten for security
+    local protectedKeys = {
+      Id = true,
+      Owner = true,
+      Module = true,
+      ['Block-Height'] = true
+    }
+    
+    -- Allow these top-level keys to be overwritten (safe user-controlled fields)
     formattedMsg.From = msg.From or ao.id
     formattedMsg.Data = msg.Data or nil
     formattedMsg.Timestamp = msg.Timestamp or formattedMsg.Timestamp
 
-    -- handle tags
+    -- Handle tags and other message fields
     formattedMsg.Tags = msg.Tags or formattedMsg.Tags
     for k, v in pairs(msg) do
-      if not formattedMsg[k] then
+      -- Skip protected keys to prevent security issues
+      if protectedKeys[k] then
+        -- Silently ignore attempts to overwrite protected keys
+        -- In production, this could log a warning
+      elseif not formattedMsg[k] then
+        -- New keys go to Tags
         formattedMsg.Tags[k] = v
+      else
+        -- Allow overwriting of safe, existing keys (From, Data, Timestamp, Target)
+        formattedMsg[k] = v
       end
-
-      formattedMsg[k] =
-          v -- TODO check for safety here in order to be complete (no top level keys like Module, Owner, From-Process, etc. should be overwritten)
     end
 
     return formattedMsg
